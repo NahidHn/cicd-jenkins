@@ -16,5 +16,10 @@ pipeline {
                 echo 'Deploy complete!'
             }
         }
+        stage('Notify') {
+            steps {
+                echo '🎉 Code push detected! Jenkins build triggered automatically.'
+            }
+        }
     }
 }
