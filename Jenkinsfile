@@ -18,7 +18,7 @@ pipeline {
         }
         stage('Notify') {
             steps {
-                echo '🎉 Code push detected! Jenkins build triggered automatically.'
+                echo '🎉 Code push detected! Jenkins build triggered automatically. it's look beautiful '
             }
         }
     }
