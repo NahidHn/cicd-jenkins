@@ -1,25 +1,37 @@
 pipeline {
     agent any
+
     stages {
-        stage('Build') {
+        stage('Clone Repository') {
             steps {
-                echo 'Building project...'
+                git 'https://github.com/NahidHn/cicd-jenkins.git'
             }
         }
-        stage('Test') {
+
+        stage('Build Docker Image') {
             steps {
-                echo 'Running tests...'
+                sh 'docker build -t jenkins-nodejs-docker-demo:latest .'
             }
         }
-        stage('Deploy') {
+
+        stage('Run Container (Test)') {
             steps {
-                echo 'Deploy complete!'
+                sh 'docker run -d -p 3000:3000 --name nodejs-demo jenkins-nodejs-docker-demo:latest'
             }
         }
-        stage('Notify') {
+
+        stage('Verify Build') {
             steps {
-                echo '🎉 Code push detected! Jenkins build triggered automatically. its look beautiful '
+                sh 'docker ps | grep nodejs-demo'
             }
+        }
+    }
+
+    post {
+        always {
+            echo 'Cleaning up...'
+            sh 'docker stop nodejs-demo || true'
+            sh 'docker rm nodejs-demo || true'
         }
     }
 }
