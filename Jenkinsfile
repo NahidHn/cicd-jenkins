@@ -27,11 +27,5 @@ pipeline {
         }
     }
 
-    post {
-        always {
-            echo 'Cleaning up...'
-            sh 'docker stop nodejs-demo || true'
-            sh 'docker rm nodejs-demo || true'
-        }
-    }
+
 }
