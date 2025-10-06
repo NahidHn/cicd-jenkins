@@ -2,9 +2,9 @@ pipeline {
     agent any
 
     stages {
-        stage('git checkout') {
+        stage('Checkout') {
             steps {
-                git 'https://github.com/NahidHn/cicd-jenkins.git'
+                git branch: 'main', url: 'https://github.com/NahidHn/cicd-jenkins.git'
             }
         }
 
