@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     stages {
-        stage('Clone Repository') {
+        stage('git checkout') {
             steps {
                 git 'https://github.com/NahidHn/cicd-jenkins.git'
             }
