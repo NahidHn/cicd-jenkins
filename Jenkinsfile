@@ -22,9 +22,19 @@ pipeline {
 
         stage('Verify Build') {
             steps {
-                sh 'docker ps | grep nodejs-demo'
-            }
+                script {
+                    def isRunning = sh(script: "docker ps | grep nodejs-demo || true", returnStdout: true).trim()
+                    if (isRunning) {
+                        echo "✅ Container is running!"
+                    } else {
+                        echo "❌ Container is not running!"
+                        sh 'docker logs nodejs-demo || true'
+                        error("Container failed to stay up")
+                    }
         }
+    }
+}
+
     }
 
 
